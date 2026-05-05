@@ -1,6 +1,5 @@
 import os
 import requests
-import json
 from telegram import Update
 from telegram.ext import Application, MessageHandler, filters, ContextTypes
 
@@ -51,7 +50,6 @@ def get_campaigns():
 async def handle_message(update: Update, context: ContextTypes.DEFAULT_TYPE):
     text = update.message.text.lower()
     await update.message.reply_text("⏳ جاري المعالجة...")
-
     if "حملات" in text or "campaigns" in text:
         result = get_campaigns()
         await update.message.reply_text(f"📊 حملاتك:\n{result}")
@@ -62,6 +60,8 @@ async def handle_message(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
 # ─── تشغيل البوت ───
 def main():
+    if not TELEGRAM_TOKEN:
+        raise ValueError("TELEGRAM_TOKEN غير موجود!")
     app = Application.builder().token(TELEGRAM_TOKEN).build()
     app.add_handler(MessageHandler(filters.TEXT & ~filters.COMMAND, handle_message))
     print("✅ البوت يعمل...")
