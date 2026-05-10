@@ -1,7 +1,7 @@
 import os
 import requests
 from telegram import Update
-from telegram.ext import Application, MessageHandler, filters, ContextTypes
+from telegram.ext import Updater, MessageHandler, Filters, CallbackContext
 
 TELEGRAM_TOKEN = os.environ.get("TELEGRAM_TOKEN")
 DEVELOPER_TOKEN = os.environ.get("DEVELOPER_TOKEN")
@@ -40,20 +40,22 @@ def get_campaigns():
         return "\n".join(results) if results else "لا توجد حملات"
     return f"خطأ: {r.status_code} - {r.text[:200]}"
 
-async def handle_message(update: Update, context: ContextTypes.DEFAULT_TYPE):
+def handle_message(update: Update, context: CallbackContext):
     text = update.message.text.lower()
-    await update.message.reply_text("⏳ جاري المعالجة...")
+    update.message.reply_text("⏳ جاري المعالجة...")
     if "حملات" in text or "campaigns" in text:
         result = get_campaigns()
-        await update.message.reply_text(f"📊 حملاتك:\n{result}")
+        update.message.reply_text(f"📊 حملاتك:\n{result}")
     else:
-        await update.message.reply_text("مرحباً! 👋\n\nاكتب 'حملات' لعرض حملاتك")
+        update.message.reply_text("مرحباً! 👋\n\nاكتب 'حملات' لعرض حملاتك")
 
 def main():
-    app = Application.builder().token(TELEGRAM_TOKEN).build()
-    app.add_handler(MessageHandler(filters.TEXT & ~filters.COMMAND, handle_message))
+    updater = Updater(TELEGRAM_TOKEN)
+    dp = updater.dispatcher
+    dp.add_handler(MessageHandler(Filters.text & ~Filters.command, handle_message))
     print("✅ البوت يعمل...")
-    app.run_polling(allowed_updates=Update.ALL_TYPES)
+    updater.start_polling()
+    updater.idle()
 
 if __name__ == "__main__":
     main()
