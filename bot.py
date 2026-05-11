@@ -23,12 +23,11 @@ def get_access_token():
 def get_campaigns():
     token = get_access_token()
 
-    url = f"https://googleads.googleapis.com/v24/customers/{CUSTOMER_ID}/googleAds:search"
+    url = f"https://googleads.googleapis.com/v17/customers/{CUSTOMER_ID}/googleAds:search"
 
     headers = {
         "Authorization": f"Bearer {token}",
         "developer-token": DEVELOPER_TOKEN,
-        "login-customer-id": MCC_ID,
         "Content-Type": "application/json",
     }
 
@@ -43,20 +42,21 @@ def get_campaigns():
         """
     }
 
-    r = requests.post(url, headers=headers, json=body)
+    try:
+        r = requests.post(url, headers=headers, json=body)
 
-    if r.status_code == 200:
-        results = []
+        return f"""
+STATUS: {r.status_code}
 
-        data = r.json()
+URL:
+{url}
 
-        for row in data.get("results", []):
-            c = row.get("campaign", {})
-            results.append(f"• {c.get('name')} [{c.get('status')}]")
+RESPONSE:
+{r.text[:3000]}
+"""
 
-        return "\n".join(results) if results else "لا توجد حملات"
-
-    return f"خطأ API: {r.status_code}\n{r.text[:1000]}"
+    except Exception as e:
+        return f"EXCEPTION: {str(e)}"
     
 async def handle_message(update: Update, context: ContextTypes.DEFAULT_TYPE):
     text = update.message.text.lower()
