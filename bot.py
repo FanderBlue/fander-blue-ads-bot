@@ -23,13 +23,13 @@ def get_access_token():
 def get_campaigns():
     token = get_access_token()
 
-    url = f"https://googleads.googleapis.com/v17/customers/{CUSTOMER_ID}/googleAds:search"
+    url = f"https://googleads.googleapis.com/v24/customers/{CUSTOMER_ID}/googleAds:search"
 
-    headers = {
-        "Authorization": f"Bearer {token}",
-        "developer-token": DEVELOPER_TOKEN,
-        "Content-Type": "application/json",
-    }
+headers = {
+    "Authorization": f"Bearer {token}",
+    "developer-token": DEVELOPER_TOKEN,
+    "Content-Type": "application/json",
+}
 
     body = {
         "query": """
