@@ -21,6 +21,8 @@ def get_access_token():
     return r.json().get("access_token")
 
 def get_campaigns():
+    return "TEST VERSION 123"
+    
     token = get_access_token()
 
     url = f"https://googleads.googleapis.com/v24/customers/{CUSTOMER_ID}/googleAds:search"
