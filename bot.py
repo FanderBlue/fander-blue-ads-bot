@@ -70,7 +70,7 @@ async def handle_message(update: Update, context: ContextTypes.DEFAULT_TYPE):
 def main():
     app = Application.builder().token(TELEGRAM_TOKEN).build()
     app.add_handler(MessageHandler(filters.TEXT & ~filters.COMMAND, handle_message))
-   print("🚀 NEW VERSION WORKING 🚀 ")
+   print("🚀 NEW VERSION WORKING 🚀")
     app.run_polling()
 
 if __name__ == "__main__":
