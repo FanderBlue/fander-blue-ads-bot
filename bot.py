@@ -70,7 +70,7 @@ async def handle_message(update: Update, context: ContextTypes.DEFAULT_TYPE):
 def main():
     app = Application.builder().token(TELEGRAM_TOKEN).build()
     app.add_handler(MessageHandler(filters.TEXT & ~filters.COMMAND, handle_message))
-    print("✅ البوت يعمل...")
+   print("🚀 NEW VERSION WORKING 🚀")
     app.run_polling(allowed_updates=Update.ALL_TYPES, drop_pending_updates=True)
 
 if __name__ == "__main__":
