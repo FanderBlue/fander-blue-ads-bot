@@ -22,6 +22,8 @@ def get_access_token():
 
 def get_campaigns():
     return "TEST VERSION 123"
+
+async def handle_message(update: Update, context: ContextTypes.DEFAULT_TYPE):
     
     token = get_access_token()
 
