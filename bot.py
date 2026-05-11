@@ -22,7 +22,7 @@ def get_access_token():
 
 def get_campaigns():
     token = get_access_token()
-    url = f"https://googleads.googleapis.com/v17/customers/{CUSTOMER_ID}/googleAds:searchStream"
+    url = f"https://googleads.googleapis.com/v19/customers/{CUSTOMER_ID}/googleAds:searchStream"
     headers = {
         "Authorization": f"Bearer {token}",
         "developer-token": DEVELOPER_TOKEN,
