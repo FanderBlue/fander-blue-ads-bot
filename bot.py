@@ -22,7 +22,8 @@ def get_access_token():
 
 def get_campaigns():
     token = get_access_token()
-    url = f"https://googleads.googleapis.com/v18/customers/{CUSTOMER_ID}/googleAds:searchStream"
+
+    url = f"https://googleads.googleapis.com/v18/customers/{CUSTOMER_ID}/googleAds:search"
 
     headers = {
         "Authorization": f"Bearer {token}",
@@ -46,13 +47,17 @@ def get_campaigns():
 
     if r.status_code == 200:
         results = []
-        for batch in r.json():
-            for row in batch.get("results", []):
-                c = row.get("campaign", {})
-                results.append(f"• {c.get('name')} [{c.get('status')}]")
+
+        data = r.json()
+
+        for row in data.get("results", []):
+            c = row.get("campaign", {})
+            results.append(f"• {c.get('name')} [{c.get('status')}]")
+
         return "\n".join(results) if results else "لا توجد حملات"
 
     return f"خطأ API: {r.status_code}\n{r.text[:1000]}"
+    
 async def handle_message(update: Update, context: ContextTypes.DEFAULT_TYPE):
     text = update.message.text.lower()
     await update.message.reply_text("⏳ جاري المعالجة...")
