@@ -3,11 +3,11 @@ import requests
 from telegram import Update
 from telegram.ext import Application, MessageHandler, filters, ContextTypes
 
-TELEGRAM_TOKEN = os.environ.get("TELEGRAM_TOKEN")
-DEVELOPER_TOKEN = os.environ.get("DEVELOPER_TOKEN")
-CLIENT_ID = os.environ.get("CLIENT_ID")
-CLIENT_SECRET = os.environ.get("CLIENT_SECRET")
-REFRESH_TOKEN = os.environ.get("REFRESH_TOKEN")
+TELEGRAM_TOKEN = os.environ.get("TELEGRAM_BOT_TOKEN")
+DEVELOPER_TOKEN = os.environ.get("GOOGLE_ADS_DEVELOPER_TOKEN")
+CLIENT_ID = os.environ.get("GOOGLE_ADS_CLIENT_ID")
+CLIENT_SECRET = os.environ.get("GOOGLE_ADS_CLIENT_SECRET")
+REFRESH_TOKEN = os.environ.get("GOOGLE_ADS_REFRESH_TOKEN")
 CUSTOMER_ID = "7261657135"
 MCC_ID = "2079673466"
 
